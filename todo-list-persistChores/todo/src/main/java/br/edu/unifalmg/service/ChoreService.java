@@ -6,6 +6,7 @@ import br.edu.unifalmg.exception.*;
 import br.edu.unifalmg.repository.ChoreRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class ChoreService {
 //        }
 
         // Using Constructor with all arguments
-        Chore chore = new Chore(description, Boolean.FALSE, deadline);
+        Chore chore = new Chore((long)chores.size()+1,description, Boolean.FALSE, deadline);
 
 
 //         Using Lombok's builder
@@ -178,6 +179,9 @@ public class ChoreService {
         return repository.saveAll(this.chores);
     }
 
+    public boolean update(Chore chore) {
+            return this.repository.update(chore);
+    }
     private final Predicate<List<Chore>> isChoreListEmpty = choreList -> choreList.isEmpty();
 
 }
